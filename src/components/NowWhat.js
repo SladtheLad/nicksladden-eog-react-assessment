@@ -46,7 +46,7 @@ export default () => {
 
         <Typography variant="body1">
           Remember to refer to our{" "}
-          <a href="https://react.eogresources.com/assessing">
+          <a target="top" href="https://react.eogresources.com/assessing">
             How We Assess Submissions
           </a>{" "}
           guidelines.

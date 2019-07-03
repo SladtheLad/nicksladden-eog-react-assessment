@@ -57,7 +57,8 @@ const Weather = () => {
     }
   });
   const { fetching, data, error } = result;
-  console.log(data)
+  // console.log(data)
+  // console.log(error)
   useEffect(
     () => {
       if (error) {
