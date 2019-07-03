@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const toF = c => (c * 9) / 5 + 32;
+const toFixed = temp => temp.toFixed(1);
 
 const weatherDataRecevied = (state, action) => {
   const { getWeatherForLocation } = action;
@@ -18,8 +19,8 @@ const weatherDataRecevied = (state, action) => {
   } = getWeatherForLocation;
 
   return {
-    temperatureinCelsius,
-    temperatureinFahrenheit: toF(temperatureinCelsius),
+    temperatureinCelsius: toFixed(temperatureinCelsius),
+    temperatureinFahrenheit: toFixed(toF(temperatureinCelsius)),
     description,
     locationName
   };
