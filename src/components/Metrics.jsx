@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,  useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from './CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { Provider, createClient, useQuery } from 'urql';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../store/actions';
 
 const client = createClient({
@@ -18,21 +18,24 @@ query{
 }
 `;
 
+//CHANGE THINGS FOR LAST MEASUREMENT 
+//LOOK AT URQL DOC FOR HOW TO PASS VARIABLES
+
 // query($metricName: String!){
 //   getLastKnownMeasurement(metricName: $metricName){
 //     value
 //   }
 // }
 
-const getMetricData = state => {
-  console.log(state)
-  const {
-    metrics
-  } = state.metrics;
-  return {
-    metrics
-  };
-};
+// const getMetricData = state => {
+//   console.log(state)
+//   const {
+//     metrics
+//   } = state.metrics;
+//   return {
+//     metrics
+//   };
+// };
 
 const useStyles = makeStyles({
   card: {
@@ -50,15 +53,17 @@ export default () => {
 const Metrics = () => {
   const classes = useStyles();
 
+  const [metrics, setMetrics] = useState();
+
   const dispatch = useDispatch();
 
   const [result] = useQuery({
     query
   });
 
-  const {
-    metrics
-  } = useSelector(getMetricData);
+  // const {
+  //   metrics
+  // } = useSelector(getMetricData);
   console.log(metrics)
 
   const { fetching, data, error } = result;
@@ -72,12 +77,14 @@ const Metrics = () => {
       return;
     }
     if (!data) return;
-    const { getMetrics } = data;
-    console.log(getMetrics)
-    dispatch({
-      type: actions.METRICS_RECEIVED,
-      getMetrics
-    });
+    console.log(data);
+    const metricData = Object.values(data)
+    metricData.pop()
+    setMetrics(metricData)
+    // dispatch({
+    //   type: actions.METRICS_RECEIVED,
+    //   getMetrics
+    // });
     
   }, [dispatch, data, error]);
 
