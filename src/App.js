@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import NowWhat from "./components/NowWhat";
 import Metrics from "./components/Metrics"
+import Measurement from "./components/Measurement";
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -35,6 +36,7 @@ const App = props => (
       <Wrapper>
         <Header />
         <Metrics />
+        <Measurement />
         <NowWhat />
         <ToastContainer />
       </Wrapper>

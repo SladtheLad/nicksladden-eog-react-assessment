@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from './CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,7 +18,7 @@ query{
 }
 `;
 
-//CHANGE THINGS FOR LAST MEASUREMENT 
+//CHANGE THINGS FOR LAST MEASUREMENT
 //LOOK AT URQL DOC FOR HOW TO PASS VARIABLES
 
 // query($metricName: String!){
@@ -64,7 +64,7 @@ const Metrics = () => {
   // const {
   //   metrics
   // } = useSelector(getMetricData);
-  console.log(metrics)
+  console.log(metrics);
 
   const { fetching, data, error } = result;
 
@@ -78,14 +78,13 @@ const Metrics = () => {
     }
     if (!data) return;
     console.log(data);
-    const metricData = Object.values(data)
-    metricData.pop()
-    setMetrics(metricData)
+    const metricData = Object.values(data);
+    metricData.pop();
+    setMetrics(metricData);
     // dispatch({
     //   type: actions.METRICS_RECEIVED,
     //   getMetrics
     // });
-    
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
