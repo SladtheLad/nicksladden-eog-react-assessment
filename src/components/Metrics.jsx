@@ -64,7 +64,6 @@ const Metrics = () => {
   // const {
   //   metrics
   // } = useSelector(getMetricData);
-  console.log(metrics);
 
   const { fetching, data, error } = result;
 
@@ -77,7 +76,6 @@ const Metrics = () => {
       return;
     }
     if (!data) return;
-    console.log(data);
     const metricData = Object.values(data);
     metricData.pop();
     setMetrics(metricData);
