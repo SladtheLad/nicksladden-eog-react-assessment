@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
-import CardHeader from './CardHeader';
+import CardHeader from '../CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { makeStyles } from '@material-ui/core/styles';
 import { Provider, createClient, useQuery } from 'urql';
 import { useDispatch } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../../store/actions';
 
 const client = createClient({
   url: 'https://react.eogresources.com/graphql'
@@ -26,7 +26,7 @@ query {
 
 const useStyles = makeStyles({
   card: {
-    margin: '5% 25%'
+    margin: '5% 5%'
   }
 });
 
