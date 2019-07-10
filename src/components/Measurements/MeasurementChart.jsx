@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip
+} from 'recharts';
 import { Provider, createClient, useQuery } from 'urql';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
@@ -9,20 +16,22 @@ const client = createClient({
   url: 'https://react.eogresources.com/graphql'
 });
 
-export default () => {
+export default props => {
   return (
     <Provider value={client}>
-      <Measurement />
+      <MeasurementChart metric={props} />
     </Provider>
   );
 };
 
-const Measurement = props => {
+const MeasurementChart = props => {
   const [measurements, setMeasurements] = useState([]);
+
+  const { metric } = props;
 
   const query = `
 query {
-  getMeasurements(input: { metricName: "oilTemp", after: 1562338337 }) {
+  getMeasurements(input: {metricName: "${metric.metricName}"}) {
     metric
     value
     unit
@@ -61,9 +70,10 @@ query {
   return (
     <LineChart width={400} height={400} data={measurements}>
       <Line type="monotone" dataKey="value" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" />
+      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
       <XAxis dataKey="metric" />
-      <YAxis dataKey="value" />
+      <YAxis />
+      <Tooltip />
     </LineChart>
   );
 };

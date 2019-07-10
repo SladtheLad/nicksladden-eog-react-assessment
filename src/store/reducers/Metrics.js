@@ -1,13 +1,13 @@
 import * as actions from '../actions';
 
 const initialState = {
-  metrics: ""
+  metric: ""
 };
 
 const metricsReceived = (state, action) => {
-  const { getMetrics } = action;
-  const { metrics } = getMetrics;
-  return { metrics };
+  const { getMetric } = action;
+  const { metric } = getMetric;
+  return { metric };
 };
 
 const handlers = {

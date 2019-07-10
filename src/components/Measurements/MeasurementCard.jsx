@@ -11,7 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import { Provider, createClient, useQuery } from 'urql';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
-import Measurement from './Measurement';
+import MeasurementChart from './MeasurementChart';
+import LastKnownMeasurement from './LastKnownMeasurement'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     width: 200
   },
   card: {
-    margin: '5% 15%'
+    margin: '5% 10%'
   }
 }));
 
@@ -39,7 +40,6 @@ query{
   getMetrics
 }
 `;
-
 
 export default () => {
   return (
@@ -77,8 +77,7 @@ const MetricSelect = () => {
   const { fetching, data, error } = result;
 
   const handleChange = event => {
-    console.log(event.target.value)
-    setSelectedMetric(event.target.value)
+    setSelectedMetric(event.target.value);
   };
 
   useEffect(() => {
@@ -92,7 +91,7 @@ const MetricSelect = () => {
     if (!data) return;
     const metricData = Object.values(data.getMetrics);
     setMetrics(metricData);
-  }, [dispatch, data, error, selectedMetric]);
+  }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
 
@@ -117,8 +116,9 @@ const MetricSelect = () => {
               ))
             : null}
         </Select>
+        <LastKnownMeasurement metricName={selectedMetric} />
       </FormControl>
-      <Measurement metric={selectedMetric} />
+      <MeasurementChart metricName={selectedMetric} />
     </form>
   );
 };
